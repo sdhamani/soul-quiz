@@ -1,0 +1,49 @@
+:root {
+  --background-color: rgb(229 229 229/90%);
+  --primary-color: #3e6387;
+  --secondary-color: rgb(229 229 229/90%);
+}
+.homescreen {
+  height: 100vh;
+  margin: 0rem 0rem;
+}
+
+.homescreen-content {
+  position: fixed;
+  width: 50%;
+  left: 25%;
+  top: 25%;
+  background-color: var(--background-color);
+  border-radius: 2rem;
+}
+
+.homescreen-heading {
+  margin-top: 0rem;
+  font-size: 4rem;
+  font-weight: 700;
+  text-align: center;
+  color: var(--primary-color);
+}
+
+.quiz-cateogory {
+  float: center;
+  text-align: center;
+  width: 40%;
+  background-color: var(--primary-color);
+  padding: 0.5rem 0.5rem;
+  margin: 0.5rem 2rem;
+}
+
+.cateogory-link {
+  text-decoration: none;
+  color: var(--secondary-color);
+}
+
+.quiz-cateogory:hover {
+  background-color: var(--secondary-color);
+  color: var(--primary-color);
+}
+
+.quiz-cateogory:hover .cateogory-link {
+  color: var(--primary-color);
+}
