@@ -32,9 +32,11 @@
   background-color: var(--primary-color);
   padding: 0.5rem 0.5rem;
   margin: 0.5rem 2rem;
+  outline: none;
 }
 
 .cateogory-link {
+  width: 80%;
   text-decoration: none;
   color: var(--secondary-color);
 }
