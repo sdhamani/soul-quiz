@@ -17,13 +17,17 @@ function LeaderBoard() {
           <ol>
             {leaderboard.map((user) => {
               return (
-                <li>
+                <li className="single-user">
                   <mark>{user.name.toUpperCase()}</mark>
                   {user.scores.map((score) => {
                     return (
                       <>
-                        <span>{score.cateogory.toUpperCase()}:</span>
-                        <span>{score.score},</span>
+                        <ul>
+                          <li className="no-number">
+                            {score.cateogory.toUpperCase()}
+                          </li>
+                          <li className="no-number">{score.score}</li>
+                        </ul>
                       </>
                     );
                   })}
