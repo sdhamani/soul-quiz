@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import "./quiz.css";
 import { questions } from "../../data/questions";
-import { useParams } from "react-router";
+import { useNavigate, useParams } from "react-router";
+import firebase from "firebase";
+import useLeaderBoard from "../../contexts/leaderboardcontext/leaderBoardContext";
 
 function Quiz() {
   const [score, setScore] = useState(0);
@@ -9,9 +11,49 @@ function Quiz() {
   const [answeredOption, setansweredOption] = useState();
   const [questionNo, setQuestionNo] = useState(0);
   const { cateogory } = useParams();
+  const { leaderboard, setleaderboard } = useLeaderBoard();
+  const navigate = useNavigate();
   const filteredQuestions = questions.filter((question) => {
     return question.cateogory.toLowerCase() === cateogory.toLowerCase();
   });
+
+  const updateLeaderBoard = async () => {
+    const loggedInUserId = firebase.auth().currentUser?.uid;
+    const userScore: any = leaderboard.find(
+      (item) => item.userId === loggedInUserId
+    );
+    const userScores = userScore?.scores;
+    const userScorefitered = userScores?.filter(
+      (item: any) => item.cateogory !== cateogory
+    );
+    const obj = {
+      userId: String(loggedInUserId),
+      name: String(firebase.auth().currentUser?.displayName),
+      scores: [
+        ...userScorefitered,
+        {
+          cateogory: cateogory,
+          score: score + 1,
+        },
+      ],
+    };
+    const newleaderboard = leaderboard.map((item) => {
+      if (item.userId === loggedInUserId) {
+        return { ...item, scores: obj.scores };
+      }
+      return item;
+    });
+    setleaderboard(newleaderboard);
+    try {
+      const database = firebase
+        .firestore()
+        .collection("leaderboard")
+        .doc(String(loggedInUserId));
+      await database.set(obj);
+    } catch (error) {
+      console.log("error in saving data", error);
+    }
+  };
 
   const answeredFun = (option: any) => {
     setansweredOption(option.target.value);
@@ -20,6 +62,7 @@ function Quiz() {
     ) {
       setansweredClass("correct-answered");
       setScore((score) => score + 1);
+      updateLeaderBoard();
     } else {
       setansweredClass("incorrect-answered");
     }
@@ -28,6 +71,10 @@ function Quiz() {
       setQuestionNo(questionNo + 1);
       setansweredClass("");
     }, 1000);
+    console.log(questionNo, filteredQuestions.length);
+    if (questionNo >= filteredQuestions.length - 1) {
+      navigate("/leaderboard");
+    }
   };
 
   return (
@@ -62,6 +109,7 @@ function Quiz() {
                       <i className="glyphicon glyphicon-chevron-right"></i>
                     </span>
                     <input
+                      className="radio"
                       onClick={(e) => answeredFun(e)}
                       type="radio"
                       name="q_answer"
@@ -134,7 +182,9 @@ function Quiz() {
               </div>
             </div>
           ) : (
-            <div className="modal-content">Final score is {score}</div>
+            <div>
+              <div className="modal-content">Final score is {score}</div>
+            </div>
           )}
         </div>
       </div>
