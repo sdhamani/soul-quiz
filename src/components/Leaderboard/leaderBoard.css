@@ -43,6 +43,11 @@ a {
   padding: 0 0;
 }
 
+@media screen and (max-width: 767px) {
+  .container {
+    width: auto;
+  }
+}
 /* leaderboard */
 .leaderboard {
   width: 100%;
