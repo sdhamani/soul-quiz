@@ -29,7 +29,7 @@ a {
 
 /* container */
 .container {
-  width: 40%;
+  max-width: 60%;
   height: auto;
   border-radius: 10px;
 
@@ -43,9 +43,36 @@ a {
   padding: 0 0;
 }
 
+.no-number {
+  justify-content: center;
+}
+
 @media screen and (max-width: 767px) {
+  .single-user {
+    display: flex !important;
+    justify-content: space-evenly;
+  }
   .container {
-    width: auto;
+    max-width: 100%;
+    top: 45%;
+    width: 98%;
+  }
+  .leaderboard li {
+    padding: 1rem 0.3rem !important;
+    font-size: small;
+  }
+  .leaderboard mark {
+    flex-grow: 0.2 !important;
+    width: 13%;
+  }
+  .no-number {
+    margin: 0rem 0rem !important;
+  }
+  ul {
+    padding-inline-start: 0.2rem;
+  }
+  .leaderboard span {
+    font-size: small;
   }
 }
 /* leaderboard */
@@ -73,11 +100,18 @@ a {
   font-size: 16px;
   margin: 0;
 }
+
+.leaderboard ul {
+  list-style-type: none;
+}
+
 .leaderboard ol {
   padding-inline-start: 0px;
-  counter-reset: number; /* 定義和初始化計數器 */
+  counter-reset: number;
 }
 .leaderboard li {
+  display: flex;
+  align-items: center;
   padding: 16px;
   display: flex;
 }
@@ -87,9 +121,13 @@ a {
   background-color: transparent;
 }
 .leaderboard li:before {
-  counter-increment: number; /* 遞增計數器 */
-  content: counter(number) "."; /* 顯示計數器 */
+  counter-increment: number;
+  content: counter(number) ".";
   margin-right: 4px;
+}
+
+.no-number:before {
+  content: none !important;
 }
 .leaderboard li:nth-child(1) {
   background: #fa6855;
