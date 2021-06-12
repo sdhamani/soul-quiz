@@ -4,11 +4,23 @@ import StyledFirebaseAuth from "react-firebaseui/StyledFirebaseAuth";
 import { useEffect, useState } from "react";
 import "./homeScreen.css";
 import { Link } from "react-router-dom";
+import "firebase/app";
+import "firebase/firestore";
 
-firebase.initializeApp({
+var firebaseConfig = {
   apiKey: "AIzaSyCdmu2QhhMzXcXfixXnSIojR3ieYjBvPqs",
   authDomain: "soul-quiz-ec3f4.firebaseapp.com",
-});
+  projectId: "soul-quiz-ec3f4",
+  storageBucket: "soul-quiz-ec3f4.appspot.com",
+  messagingSenderId: "10660779463",
+  appId: "1:10660779463:web:24c3c5838d328c5b85f5e2",
+};
+
+if (!firebase.apps.length) {
+  firebase.initializeApp(firebaseConfig);
+} else {
+  firebase.app();
+}
 
 function HomeScreen() {
   let [isSignedIn, setisSignedIn] = useState(false);
@@ -28,9 +40,7 @@ function HomeScreen() {
 
   useEffect(() => {
     firebase.auth().onAuthStateChanged((user) => {
-      console.log({ user });
       setisSignedIn(!!user);
-      console.log(isSignedIn);
     });
   }, [isSignedIn]);
 
@@ -41,10 +51,6 @@ function HomeScreen() {
         <div className="homescreen-login">
           {isSignedIn ? (
             <div className="homescreen-cateogory">
-              {/* <div> SignedIn</div>
-              <button onClick={() => firebase.auth().signOut()}>
-                Sign Out
-              </button> */}
               <Link className="cateogory-link" to="/quiz/general">
                 <button
                   type="button"
@@ -77,6 +83,9 @@ function HomeScreen() {
                   Aerobics
                 </button>{" "}
               </Link>
+              {/* <button onClick={() => firebase.auth().signOut()}>
+                Sign Out
+              </button> */}
             </div>
           ) : (
             <StyledFirebaseAuth
