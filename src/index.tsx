@@ -3,9 +3,13 @@ import ReactDOM from "react-dom";
 import "./index.css";
 import App from "./App";
 
+import { LeaderBoardProvider } from "./contexts/leaderboardcontext/leaderBoardContext";
+
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <LeaderBoardProvider>
+      <App />
+    </LeaderBoardProvider>
   </React.StrictMode>,
   document.getElementById("root")
 );
