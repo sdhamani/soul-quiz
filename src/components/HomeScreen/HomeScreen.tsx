@@ -75,7 +75,7 @@ function HomeScreen() {
                   Yoga
                 </button>{" "}
               </Link>
-              <Link className="cateogory-link" to="/quiz/aerobics">
+              <Link className="cateogory-link" to="/quiz/aerobic">
                 <button
                   type="button"
                   className="btn btn-primary quiz-cateogory"
