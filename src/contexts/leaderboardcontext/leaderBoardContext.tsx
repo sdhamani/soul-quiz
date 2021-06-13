@@ -2,17 +2,7 @@ import { createContext, useContext, useEffect, useState } from "react";
 import "firebase/app";
 import "firebase/firestore";
 import firebase from "firebase";
-
-type scores = {
-  cateogory: string;
-  score: number;
-};
-
-type InitialState = {
-  userId: string;
-  name: string;
-  scores: scores[];
-};
+import { InitialState } from "./leaderBoardContext.type";
 
 const LeaderBoardContext = createContext<LeaderBoardContextType>(
   {} as LeaderBoardContextType
