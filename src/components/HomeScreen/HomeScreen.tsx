@@ -48,6 +48,7 @@ function HomeScreen() {
     <div className="homescreen">
       <div className="homescreen-content">
         <h1 className="homescreen-heading">Soul Quiz</h1>
+
         <div className="homescreen-login">
           {isSignedIn ? (
             <div className="homescreen-cateogory">
@@ -83,9 +84,6 @@ function HomeScreen() {
                   Aerobics
                 </button>{" "}
               </Link>
-              {/* <button onClick={() => firebase.auth().signOut()}>
-                Sign Out
-              </button> */}
             </div>
           ) : (
             <StyledFirebaseAuth
@@ -93,6 +91,14 @@ function HomeScreen() {
               firebaseAuth={firebase.auth()}
             />
           )}
+        </div>
+        <div>
+          <button
+            className="signout-btn"
+            onClick={() => firebase.auth().signOut()}
+          >
+            Sign Out
+          </button>
         </div>
       </div>
     </div>

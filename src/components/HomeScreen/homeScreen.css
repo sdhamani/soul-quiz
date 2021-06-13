@@ -35,6 +35,21 @@
   outline: none;
 }
 
+@media screen and (max-width: 767px) {
+  .homescreen-content {
+    position: fixed;
+    left: 10%;
+    width: 80%;
+  }
+  .quiz-cateogory {
+    width: 100%;
+    margin: 0.5rem 0rem;
+  }
+  label.btn:hover {
+    transform: none !important;
+    -webkit-transform: none;
+  }
+}
 .cateogory-link {
   width: 80%;
   text-decoration: none;
@@ -48,4 +63,11 @@
 
 .quiz-cateogory:hover .cateogory-link {
   color: var(--primary-color);
+}
+
+.signout-btn {
+  float: right;
+  margin: 1rem 0.5rem;
+  background-color: var(--primary-color);
+  color: var(--secondary-color);
 }
