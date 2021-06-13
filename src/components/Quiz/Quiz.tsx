@@ -4,6 +4,10 @@ import { questions } from "../../data/questions";
 import { useNavigate, useParams } from "react-router";
 import firebase from "firebase";
 import useLeaderBoard from "../../contexts/leaderboardcontext/leaderBoardContext";
+import {
+  scores,
+  InitialState,
+} from "../../contexts/leaderboardcontext/leaderBoardContext.type";
 
 function Quiz() {
   const [score, setScore] = useState(0);
@@ -19,24 +23,40 @@ function Quiz() {
 
   const updateLeaderBoard = async () => {
     const loggedInUserId = firebase.auth().currentUser?.uid;
-    const userScore: any = leaderboard.find(
+    const userScore: InitialState | undefined = leaderboard.find(
       (item) => item.userId === loggedInUserId
     );
     const userScores = userScore?.scores;
-    const userScorefitered = userScores?.filter(
-      (item: any) => item.cateogory !== cateogory
+    const userScorefitered: scores[] | undefined = userScores?.filter(
+      (item: scores) => item.cateogory !== cateogory
     );
-    const obj = {
-      userId: String(loggedInUserId),
-      name: String(firebase.auth().currentUser?.displayName),
-      scores: [
-        ...userScorefitered,
-        {
-          cateogory: cateogory,
-          score: score + 1,
-        },
-      ],
-    };
+    let obj: InitialState;
+
+    if (userScorefitered === undefined) {
+      obj = {
+        userId: String(loggedInUserId),
+        name: String(firebase.auth().currentUser?.displayName),
+        scores: [
+          {
+            cateogory: cateogory,
+            score: score + 1,
+          },
+        ],
+      };
+    } else {
+      obj = {
+        userId: String(loggedInUserId),
+        name: String(firebase.auth().currentUser?.displayName),
+        scores: [
+          ...userScorefitered,
+          {
+            cateogory: cateogory,
+            score: score + 1,
+          },
+        ],
+      };
+    }
+
     const newleaderboard = leaderboard.map((item) => {
       if (item.userId === loggedInUserId) {
         return { ...item, scores: obj.scores };
@@ -62,7 +82,6 @@ function Quiz() {
     ) {
       setansweredClass("correct-answered");
       setScore((score) => score + 1);
-      updateLeaderBoard();
     } else {
       setansweredClass("incorrect-answered");
     }
@@ -71,8 +90,9 @@ function Quiz() {
       setQuestionNo(questionNo + 1);
       setansweredClass("");
     }, 1000);
-    console.log(questionNo, filteredQuestions.length);
+
     if (questionNo >= filteredQuestions.length - 1) {
+      updateLeaderBoard();
       navigate("/leaderboard");
     }
   };
