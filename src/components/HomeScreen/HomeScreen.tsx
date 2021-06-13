@@ -84,6 +84,14 @@ function HomeScreen() {
                   Aerobics
                 </button>{" "}
               </Link>
+              <div>
+                <button
+                  className="signout-btn"
+                  onClick={() => firebase.auth().signOut()}
+                >
+                  Sign Out
+                </button>
+              </div>
             </div>
           ) : (
             <StyledFirebaseAuth
@@ -91,14 +99,6 @@ function HomeScreen() {
               firebaseAuth={firebase.auth()}
             />
           )}
-        </div>
-        <div>
-          <button
-            className="signout-btn"
-            onClick={() => firebase.auth().signOut()}
-          >
-            Sign Out
-          </button>
         </div>
       </div>
     </div>
