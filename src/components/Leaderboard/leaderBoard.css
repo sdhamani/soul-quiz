@@ -47,10 +47,14 @@ a {
   justify-content: center;
 }
 
+mark {
+  width: 20%;
+}
+
 @media screen and (max-width: 767px) {
   .single-user {
     display: flex !important;
-    justify-content: space-evenly;
+    margin: auto;
   }
   .container {
     max-width: 100%;
@@ -65,8 +69,11 @@ a {
     flex-grow: 0.2 !important;
     width: 13%;
   }
+  mark {
+    margin-right: 3rem;
+  }
   .no-number {
-    margin: 0rem 0rem !important;
+    margin: 0rem 0.5rem !important;
   }
   ul {
     padding-inline-start: 0.2rem;
@@ -116,7 +123,6 @@ a {
   display: flex;
 }
 .leaderboard li mark {
-  flex-grow: 1;
   color: snow;
   background-color: transparent;
 }
