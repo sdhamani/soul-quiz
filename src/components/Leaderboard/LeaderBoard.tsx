@@ -2,13 +2,21 @@ import React from "react";
 import useLeaderBoard from "../../contexts/leaderboardcontext/leaderBoardContext";
 import "./leaderBoard.css";
 import { Link } from "react-router-dom";
-import {
-  scores,
-  InitialState,
-} from "../../contexts/leaderboardcontext/leaderBoardContext.type";
+import { scores } from "../../contexts/leaderboardcontext/leaderBoardContext.type";
 
 function LeaderBoard() {
   const { leaderboard } = useLeaderBoard();
+
+  const sortedLeaderboardCateogory = leaderboard.sort(function (a, b) {
+    let aSum = 0;
+    a.scores.map((item) => (aSum += item.score));
+    let bSum = 0;
+    b.scores.map((item) => (bSum += item.score));
+    console.log({ aSum }, { bSum });
+    if (aSum > bSum) {
+      return -1;
+    } else return 1;
+  });
 
   const arrangeCateogory = leaderboard.map((item) => {
     const newArray: scores[] = item.scores.sort(function (a, b) {
@@ -22,22 +30,6 @@ function LeaderBoard() {
     });
     return newArray;
   });
-
-  console.log("arrangeCateogory", arrangeCateogory);
-
-  // const sortedLeaderboardCateogory = leaderboard.sort(function (a, b) {
-  //   if (a.scores.length > b.scores.length) {
-  //     return -1;
-  //   } else return 1;
-  // });
-
-  // const sortedLeaderboardScores = sortedLeaderboardCateogory.sort(function (
-  //   a,
-  //   b
-  // ) {});
-
-  // console.log("leaderboard", leaderboard);
-  // console.log("sortedleaderboard", sortedLeaderboardCateogory);
 
   return (
     <div className="container">
