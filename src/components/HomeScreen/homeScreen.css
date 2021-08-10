@@ -10,8 +10,8 @@
 
 .homescreen-content {
   position: fixed;
-  width: 50%;
-  left: 25%;
+  width: 30%;
+  left: 35%;
   top: 25%;
   background-color: var(--background-color);
   border-radius: 2rem;
@@ -28,17 +28,42 @@
 .quiz-cateogory {
   float: center;
   text-align: center;
-  width: 40%;
+  width: 85%;
   background-color: var(--primary-color);
   padding: 0.5rem 0.5rem;
   margin: 0.5rem 2rem;
+  outline: none;
+  border: none;
 }
 
+@media screen and (max-width: 767px) {
+  .homescreen-content {
+    position: fixed;
+    left: 10%;
+    width: 80%;
+  }
+  .quiz-cateogory {
+    width: 100%;
+    margin: 0.5rem 0rem;
+  }
+  label.btn:hover {
+    transform: none !important;
+    -webkit-transform: none;
+  }
+}
 .cateogory-link {
+  width: 80%;
   text-decoration: none;
-  color: var(--secondary-color);
 }
 
+.btn.active.focus,
+.btn.active:focus,
+.btn.focus,
+.btn:active.focus,
+.btn:active:focus,
+.btn:focus {
+  outline: none;
+}
 .quiz-cateogory:hover {
   background-color: var(--secondary-color);
   color: var(--primary-color);
@@ -46,4 +71,11 @@
 
 .quiz-cateogory:hover .cateogory-link {
   color: var(--primary-color);
+}
+
+.signout-btn {
+  float: right;
+  margin: 1rem 0.5rem;
+  background-color: var(--primary-color);
+  color: var(--secondary-color);
 }
